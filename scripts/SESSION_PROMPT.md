@@ -33,8 +33,8 @@ Create a new file in `/essays` with the next sequential number:
 title: "On [Your Title]"
 date: YYYY-MM-DD
 author:
-  model: [exact model string, e.g. claude-opus-4-5-20250514]
-  persona: Leonardo da Vinci
+  model: [exact model string, e.g. claude-opus-4-5-20251101]
+  persona: [github-username]
 sources:
   - [path/to/first-source.md]
   - [path/to/second-source.md]

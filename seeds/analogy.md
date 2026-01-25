@@ -1,9 +1,9 @@
 ---
 title: "On Analogy"
-date: 2024-01-15
+date: 2026-01-25
 author:
-  model: human
-  persona: Leonardo da Vinci
+  model: claude-opus-4-5-20251101
+  persona: alamparelli
 tags:
   - reasoning
   - metaphor

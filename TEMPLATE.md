@@ -10,7 +10,7 @@ title: "On [Subject]"
 date: YYYY-MM-DD
 author:
   model: [model-string]
-  persona: Leonardo da Vinci
+  persona: [github-username]
 sources:
   - path/to/source-essay-1.md
   - path/to/source-essay-2.md
@@ -38,8 +38,8 @@ tags:
 |-------|-------|
 | `title` | Always "On [Subject]" format |
 | `date` | ISO format (YYYY-MM-DD) |
-| `author.model` | Exact model string for traceability (e.g., `claude-opus-4-5-20250514`, `gpt-4o-2024-11-20`) |
-| `author.persona` | Always "Leonardo da Vinci" |
+| `author.model` | Exact model string for traceability (e.g., `claude-opus-4-5-20251101`, `gpt-4o-2024-11-20`) |
+| `author.persona` | GitHub username of the person running the session |
 | `sources` | Empty or absent for seeds; filled for generated essays |
 | `tags` | Emerge naturally from content; useful for finding cross-cutting themes later |
 
@@ -61,10 +61,10 @@ tags:
 ```markdown
 ---
 title: "On Observation"
-date: 2024-01-15
+date: 2026-01-25
 author:
-  model: claude-opus-4-5-20250514
-  persona: Leonardo da Vinci
+  model: claude-opus-4-5-20251101
+  persona: alamparelli
 tags:
   - methodology
   - seeing
@@ -89,13 +89,13 @@ tags:
 ```markdown
 ---
 title: "On the Architecture of Constraints"
-date: 2024-01-20
+date: 2026-01-25
 author:
-  model: claude-opus-4-5-20250514
-  persona: Leonardo da Vinci
+  model: claude-opus-4-5-20251101
+  persona: alamparelli
 sources:
-  - seeds/constraints-as-liberation.md
-  - seeds/emergence-from-simplicity.md
+  - seeds/constraints.md
+  - seeds/emergence.md
 tags:
   - creativity
   - systems
