@@ -9,7 +9,7 @@ Generate a new essay by synthesizing two existing essays from this repository.
 ## Process
 
 ### Step 1: Discovery
-Read all essays in `/essays` and `/seeds` directories. Parse the `registry.json` to identify which pairs have already been crossed.
+Read all essays in the `/essays` directory. Parse the `registry.json` to identify which pairs have already been crossed.
 
 ### Step 2: Selection
 Randomly select two essays that have NOT been crossed together yet. If all pairs have been explored, select three essays instead, or revisit a single essay from a fresh angle.
@@ -36,8 +36,8 @@ author:
   model: [exact model string, e.g. claude-opus-4-5-20251101]
   persona: [github-username]
 sources:
-  - [path/to/first-source.md]
-  - [path/to/second-source.md]
+  - essays/[first-source.md]
+  - essays/[second-source.md]
 tags:
   - [relevant]
   - [tags]
@@ -51,8 +51,8 @@ Add the new crossing to `registry.json`:
 
 ```json
 {
-  "sources": ["XXX", "YYY"],
-  "result": "ZZZ",
+  "sources": ["essays/XXX.md", "essays/YYY.md"],
+  "result": "essays/ZZZ.md",
   "date": "YYYY-MM-DD"
 }
 ```

@@ -1,11 +1,10 @@
 {
   "crossings": [],
-  "seeds": [
-    "seeds/attention.md",
-    "seeds/collective-intelligence.md",
-    "seeds/limits.md",
-    "seeds/connection.md",
-    "seeds/acceleration.md"
-  ],
-  "essays": []
+  "essays": [
+    "essays/attention.md",
+    "essays/collective-intelligence.md",
+    "essays/limits.md",
+    "essays/connection.md",
+    "essays/acceleration.md"
+  ]
 }

@@ -1,6 +1,6 @@
 # Essay Template
 
-All essays and seeds in the Leonardo project follow this format.
+All essays in the Leonardo project follow this format.
 
 ## Format
 
@@ -51,8 +51,9 @@ tags:
 
 ## File Naming
 
-- Seeds: `seeds/[subject-in-kebab-case].md`
-- Essays: `essays/NNN-[subject-in-kebab-case].md` (sequential numbering)
+All essays go in `essays/`:
+- Seeds (no sources): `essays/[subject-in-kebab-case].md`
+- Generated essays: `essays/NNN-[subject-in-kebab-case].md` (sequential numbering)
 
 ## Examples
 
@@ -60,20 +61,20 @@ tags:
 
 ```markdown
 ---
-title: "On Observation"
+title: "On Attention"
 date: 2026-01-25
 author:
   model: claude-opus-4-5-20251101
   persona: alamparelli
 tags:
-  - methodology
-  - seeing
-  - foundations
+  - technology
+  - mind
+  - distraction
 ---
 
-# On Observation
+# On Attention
 
-*In which we consider why the eye must work before the mind...*
+*In which we examine humanity's most precious resource, now under siege...*
 
 ---
 
@@ -88,23 +89,23 @@ tags:
 
 ```markdown
 ---
-title: "On the Architecture of Constraints"
+title: "On the Fragmented Present"
 date: 2026-01-25
 author:
   model: claude-opus-4-5-20251101
   persona: alamparelli
 sources:
-  - seeds/constraints.md
-  - seeds/emergence.md
+  - essays/attention.md
+  - essays/acceleration.md
 tags:
-  - creativity
-  - systems
-  - paradox
+  - time
+  - presence
+  - technology
 ---
 
-# On the Architecture of Constraints
+# On the Fragmented Present
 
-*In which we discover how walls become doors...*
+*In which we discover how speed shatters attention...*
 
 ---
 
