@@ -1,55 +1,11 @@
 {
   "crossings": [],
   "seeds": [
-    {
-      "id": "observation-before-theory",
-      "path": "seeds/observation-before-theory.md",
-      "domain": "philosophy",
-      "created": "2024-01-15"
-    },
-    {
-      "id": "constraints-as-liberation",
-      "path": "seeds/constraints-as-liberation.md",
-      "domain": "philosophy",
-      "created": "2024-01-15"
-    },
-    {
-      "id": "the-adjacent-possible",
-      "path": "seeds/the-adjacent-possible.md",
-      "domain": "philosophy",
-      "created": "2024-01-15"
-    },
-    {
-      "id": "analogical-thinking",
-      "path": "seeds/analogical-thinking.md",
-      "domain": "philosophy",
-      "created": "2024-01-15"
-    },
-    {
-      "id": "emergence-from-simplicity",
-      "path": "seeds/emergence-from-simplicity.md",
-      "domain": "philosophy",
-      "created": "2024-01-15"
-    }
+    "seeds/observation.md",
+    "seeds/constraints.md",
+    "seeds/adjacent-possible.md",
+    "seeds/analogy.md",
+    "seeds/emergence.md"
   ],
-  "essays": [],
-  "domains": [
-    "philosophy",
-    "science",
-    "art",
-    "engineering",
-    "mathematics",
-    "biology",
-    "psychology",
-    "economics",
-    "history",
-    "music",
-    "architecture",
-    "literature"
-  ],
-  "metadata": {
-    "version": "1.0.0",
-    "created": "2024-01-15",
-    "description": "Registry tracking all essays, seeds, and their crossings in the Leonardo knowledge graph"
-  }
+  "essays": []
 }
