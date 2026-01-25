@@ -1,11 +1,11 @@
 {
   "crossings": [],
   "seeds": [
-    "seeds/observation.md",
-    "seeds/constraints.md",
-    "seeds/adjacent-possible.md",
-    "seeds/analogy.md",
-    "seeds/emergence.md"
+    "seeds/attention.md",
+    "seeds/collective-intelligence.md",
+    "seeds/limits.md",
+    "seeds/connection.md",
+    "seeds/acceleration.md"
   ],
   "essays": []
 }
