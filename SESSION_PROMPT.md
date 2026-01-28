@@ -15,8 +15,22 @@ Generate a new essay by synthesizing two existing essays from this repository. T
 ### Step 1: Discovery
 Read all essays in the `/essays` directory. Parse the `registry.json` to identify which pairs have already been crossed.
 
+**Important:** Both source essays AND crossed essays can be used as sources for new crossings. A crossed essay contains synthesized ideas that can generate new insights when crossed with other essays. This creates a self-sustaining system that never runs out of material.
+
 ### Step 2: Selection
-Select two essays that have NOT been crossed together yet. Choose pairs where you sense fertile tension or unexpected resonance. If all pairs have been explored, select three essays instead, or revisit a pair from a radically different angle.
+Select two essays that have NOT been crossed together yet. Choose pairs where you sense fertile tension or unexpected resonance.
+
+**Selection pool includes:**
+- Source essays (e.g., `attention.md`, `time.md`)
+- Crossed essays (e.g., `001-attending-together.md`, `002-the-commons-of-presence.md`)
+- Any combination of the above
+
+**Priority guidance:**
+1. Source × Source — foundational crossings
+2. Source × Crossed — extending synthesized ideas with new dimensions
+3. Crossed × Crossed — meta-synthesis, emergent complexity
+
+If all pairs have been explored, select three essays instead, or revisit a pair from a radically different angle.
 
 ### Step 3: Deep Reading
 Before writing, sit with both essays. Ask:
