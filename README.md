@@ -63,21 +63,38 @@ Inventions can span **any domain**:
 
 ```
 Leonardo/
-├── essays/           # All essays (seeds + generated) with inventions
+├── essays/                    # All essays (seeds + generated) with inventions
 ├── scripts/
-│   └── SESSION_PROMPT.md
-├── registry.json     # Tracks crossings and inventions
-├── TEMPLATE.md       # Essay format
+│   └── validation/            # Format and content validation scripts
+├── .github/workflows/         # CI/CD pipeline for essay validation
+├── SESSION_PROMPT.md          # The Leonardo persona prompt
+├── registry.json              # Tracks crossings and inventions
 └── README.md
 ```
 
 ## Running a Session
 
-1. Open a conversation with your preferred LLM
-2. Provide the content of `scripts/SESSION_PROMPT.md`
-3. Share the current state of the repository (essays + registry)
-4. The model will generate a new essay with inventions
-5. Commit the new essay and updated registry
+1. Open a conversation with Claude Code (or your preferred LLM)
+2. Point it to `SESSION_PROMPT.md`
+3. The model will:
+   - Read existing essays and registry
+   - Select an unexplored crossing
+   - Write a new essay with inventions
+   - Create a branch and PR
+
+### CI/CD Validation
+
+All essays are validated automatically via GitHub Actions:
+
+- **Format validation** — Frontmatter structure, required sections, invention format
+- **LLM content validation** — Coherence with Leonardo philosophy, prompt injection detection, tone analysis
+
+The PR will receive a detailed comment with:
+- Confidence score
+- Strengths or issues identified
+- List of proposed inventions
+
+Essays must pass validation before merging to main.
 
 ## Contributing
 
