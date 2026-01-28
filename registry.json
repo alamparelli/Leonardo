@@ -1,5 +1,12 @@
 {
-  "crossings": [],
+  "crossings": [
+    {
+      "sources": ["essays/attention.md", "essays/collective-intelligence.md"],
+      "result": "essays/001-attending-together.md",
+      "date": "2026-01-28",
+      "inventions": ["The Depth Gate", "Attention Circles", "The Slow Assembly"]
+    }
+  ],
   "essays": [
     "essays/attention.md",
     "essays/collective-intelligence.md",
@@ -7,5 +14,9 @@
     "essays/connection.md",
     "essays/acceleration.md"
   ],
-  "inventions": []
+  "inventions": [
+    "The Depth Gate",
+    "Attention Circles",
+    "The Slow Assembly"
+  ]
 }
