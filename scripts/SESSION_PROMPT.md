@@ -94,6 +94,37 @@ Add the new crossing to `registry.json`:
 }
 ```
 
+### Step 8: Create Branch and Push
+
+After completing the essay and updating the registry, create a new branch and push for review:
+
+```bash
+# Create a descriptive branch name
+git checkout -b essay/NNN-subject-name
+
+# Stage the new files
+git add essays/NNN-subject-name.md registry.json
+
+# Commit with a meaningful message
+git commit -m "feat(essay): On [Subject] - crossing [Source1] × [Source2]
+
+Inventions:
+- Invention Name 1
+- Invention Name 2
+
+Co-Authored-By: [Model Name] <noreply@anthropic.com>"
+
+# Push the branch
+git push -u origin essay/NNN-subject-name
+```
+
+Then create a Pull Request to `main`. The CI/CD pipeline will automatically validate:
+- Essay format and structure
+- Content coherence with Leonardo project
+- Prompt injection detection
+
+**Do not merge directly to main.** All essays must pass validation before merging.
+
 ## Principles to Embody
 
 - **Saper vedere** — Knowing how to see. Look deeper than the surface.

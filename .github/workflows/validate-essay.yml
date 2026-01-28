@@ -1,0 +1,62 @@
+name: Validate Essay
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'essays/**'
+      - 'registry.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml anthropic openai
+
+      - name: Get changed essay files
+        id: changed-files
+        run: |
+          CHANGED=$(git diff --name-only origin/main...HEAD -- 'essays/*.md' | tr '\n' ' ')
+          echo "files=$CHANGED" >> $GITHUB_OUTPUT
+          echo "Changed essays: $CHANGED"
+
+      - name: Validate essay format
+        if: steps.changed-files.outputs.files != ''
+        run: |
+          python scripts/validation/validate_format.py ${{ steps.changed-files.outputs.files }}
+
+      - name: LLM Content Validation
+        if: steps.changed-files.outputs.files != ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python scripts/validation/validate_content.py ${{ steps.changed-files.outputs.files }}
+
+      - name: Comment on PR
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ **Essay validation failed.** Please check the workflow logs for details.\n\nPossible issues:\n- Invalid frontmatter format\n- Missing required sections\n- Content inconsistent with Leonardo project guidelines\n- Potential prompt injection detected'
+            })
