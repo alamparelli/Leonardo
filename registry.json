@@ -5,6 +5,12 @@
       "result": "essays/001-attending-together.md",
       "date": "2026-01-28",
       "inventions": ["The Depth Gate", "Attention Circles", "The Slow Assembly"]
+    },
+    {
+      "sources": ["essays/limits.md", "essays/connection.md"],
+      "result": "essays/002-the-commons-of-presence.md",
+      "date": "2026-01-28",
+      "inventions": ["The Dunbar Garden", "Connection Commons Protocol", "The Depth Ledger"]
     }
   ],
   "essays": [
@@ -17,6 +23,9 @@
   "inventions": [
     "The Depth Gate",
     "Attention Circles",
-    "The Slow Assembly"
+    "The Slow Assembly",
+    "The Dunbar Garden",
+    "Connection Commons Protocol",
+    "The Depth Ledger"
   ]
 }
