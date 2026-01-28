@@ -101,7 +101,6 @@ The scattered mind cannot contribute to collective wisdom. But the collective th
 ## What Might Be Built
 
 ### 1. The Depth Gate
-
 **Domain:** Digital platforms / Social structures
 
 **The Crossing:** From *Attention* we learn that fragmented minds produce fragmented contributions. From *Collective Intelligence* we learn that wise collectives require honest, truth-bearing inputs. The crossing reveals: *what if collective participation required demonstrated attention?*
@@ -115,7 +114,6 @@ The scattered mind cannot contribute to collective wisdom. But the collective th
 ---
 
 ### 2. Attention Circles
-
 **Domain:** Social practices / Community structures
 
 **The Crossing:** From *Attention* we learn that attention is trainable but needs supportive environments. From *Collective Intelligence* we learn that small, well-structured groups can outthink larger poorly-structured ones. The crossing reveals: *small groups can serve as attention gyms that train the capacity for larger collective wisdom.*
@@ -129,7 +127,6 @@ The scattered mind cannot contribute to collective wisdom. But the collective th
 ---
 
 ### 3. The Slow Assembly
-
 **Domain:** Governance / Democratic institutions
 
 **The Crossing:** From *Attention* we learn that depth requires duration — fragmented minutes yield nothing while sustained hours yield insight. From *Collective Intelligence* we learn that information distorts as it flows through hierarchies and networks. The crossing reveals: *a legislative process that enforces slowness might restore both individual comprehension and collective truth.*
