@@ -11,6 +11,12 @@
       "result": "essays/002-the-commons-of-presence.md",
       "date": "2026-01-28",
       "inventions": ["The Dunbar Garden", "Connection Commons Protocol", "The Depth Ledger"]
+    },
+    {
+      "sources": ["essays/acceleration.md", "essays/collective-intelligence.md"],
+      "result": "essays/003-the-speed-of-wisdom.md",
+      "date": "2026-01-28",
+      "inventions": ["The Deliberation Delay", "Wisdom Rings", "The Truth Dance Protocol"]
     }
   ],
   "essays": [
@@ -26,6 +32,9 @@
     "The Slow Assembly",
     "The Dunbar Garden",
     "Connection Commons Protocol",
-    "The Depth Ledger"
+    "The Depth Ledger",
+    "The Deliberation Delay",
+    "Wisdom Rings",
+    "The Truth Dance Protocol"
   ]
 }
