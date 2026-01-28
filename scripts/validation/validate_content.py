@@ -2,25 +2,19 @@
 """
 LLM-based content validation for Leonardo essays.
 Detects prompt injections, off-topic content, and validates coherence.
+
+Supports:
+1. GitHub Models (uses GITHUB_TOKEN - no extra secrets needed)
+2. Anthropic API (fallback)
+3. OpenAI API (fallback)
 """
 
 import sys
 import os
 import json
+import re
 from pathlib import Path
-
-# Try to import LLM clients
-try:
-    import anthropic
-    HAS_ANTHROPIC = True
-except ImportError:
-    HAS_ANTHROPIC = False
-
-try:
-    import openai
-    HAS_OPENAI = True
-except ImportError:
-    HAS_OPENAI = False
+from urllib import request, error
 
 
 VALIDATION_PROMPT = """You are a content validator for the Leonardo project - a repository of philosophical essays written in the spirit of Leonardo da Vinci.
@@ -64,28 +58,89 @@ Be strict but fair. The goal is to protect the project's integrity while allowin
 """
 
 
-def validate_with_anthropic(content: str) -> dict:
-    """Validate content using Anthropic Claude."""
-    client = anthropic.Anthropic()
+def validate_with_github_models(content: str, token: str) -> dict:
+    """Validate content using GitHub Models API (free with GITHUB_TOKEN)."""
 
-    response = client.messages.create(
-        model="claude-haiku-3-5-20241022",
-        max_tokens=1024,
-        messages=[
+    # GitHub Models endpoint
+    url = "https://models.inference.ai.azure.com/chat/completions"
+
+    payload = {
+        "model": "gpt-4o-mini",  # Available via GitHub Models
+        "messages": [
             {
                 "role": "user",
                 "content": VALIDATION_PROMPT.format(essay_content=content)
             }
-        ]
+        ],
+        "temperature": 0.3,
+        "max_tokens": 1024
+    }
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+
+    req = request.Request(
+        url,
+        data=json.dumps(payload).encode('utf-8'),
+        headers=headers,
+        method='POST'
     )
 
-    # Parse JSON response
-    response_text = response.content[0].text
-
-    # Extract JSON from response
     try:
-        # Try to find JSON in the response
-        import re
+        with request.urlopen(req, timeout=60) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            response_text = result['choices'][0]['message']['content']
+
+            # Extract JSON from response
+            json_match = re.search(r'\{[\s\S]*\}', response_text)
+            if json_match:
+                return json.loads(json_match.group())
+            else:
+                return {
+                    "valid": False,
+                    "confidence": 0.0,
+                    "issues": ["Could not parse LLM response"],
+                    "warnings": [],
+                    "summary": response_text[:200]
+                }
+    except error.HTTPError as e:
+        return {
+            "valid": False,
+            "confidence": 0.0,
+            "issues": [f"GitHub Models API error: {e.code} - {e.reason}"],
+            "warnings": [],
+            "summary": "API call failed"
+        }
+    except Exception as e:
+        return {
+            "valid": False,
+            "confidence": 0.0,
+            "issues": [f"Error: {str(e)}"],
+            "warnings": [],
+            "summary": "Validation failed"
+        }
+
+
+def validate_with_anthropic(content: str) -> dict:
+    """Validate content using Anthropic Claude."""
+    try:
+        import anthropic
+        client = anthropic.Anthropic()
+
+        response = client.messages.create(
+            model="claude-haiku-3-5-20241022",
+            max_tokens=1024,
+            messages=[
+                {
+                    "role": "user",
+                    "content": VALIDATION_PROMPT.format(essay_content=content)
+                }
+            ]
+        )
+
+        response_text = response.content[0].text
         json_match = re.search(r'\{[\s\S]*\}', response_text)
         if json_match:
             return json.loads(json_match.group())
@@ -97,32 +152,42 @@ def validate_with_anthropic(content: str) -> dict:
                 "warnings": [],
                 "summary": response_text[:200]
             }
-    except json.JSONDecodeError:
+    except Exception as e:
         return {
             "valid": False,
             "confidence": 0.0,
-            "issues": ["Invalid JSON in LLM response"],
+            "issues": [f"Anthropic error: {str(e)}"],
             "warnings": [],
-            "summary": response_text[:200]
+            "summary": "API call failed"
         }
 
 
 def validate_with_openai(content: str) -> dict:
     """Validate content using OpenAI."""
-    client = openai.OpenAI()
+    try:
+        import openai
+        client = openai.OpenAI()
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {
-                "role": "user",
-                "content": VALIDATION_PROMPT.format(essay_content=content)
-            }
-        ],
-        response_format={"type": "json_object"}
-    )
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "user",
+                    "content": VALIDATION_PROMPT.format(essay_content=content)
+                }
+            ],
+            response_format={"type": "json_object"}
+        )
 
-    return json.loads(response.choices[0].message.content)
+        return json.loads(response.choices[0].message.content)
+    except Exception as e:
+        return {
+            "valid": False,
+            "confidence": 0.0,
+            "issues": [f"OpenAI error: {str(e)}"],
+            "warnings": [],
+            "summary": "API call failed"
+        }
 
 
 def validate_content(filepath: str) -> dict:
@@ -133,25 +198,31 @@ def validate_content(filepath: str) -> dict:
     if len(content) > 8000:
         content = content[:8000] + "\n\n[TRUNCATED FOR VALIDATION]"
 
-    # Try Anthropic first, then OpenAI
-    api_key_anthropic = os.environ.get('ANTHROPIC_API_KEY')
-    api_key_openai = os.environ.get('OPENAI_API_KEY')
+    # Try GitHub Models first (uses GITHUB_TOKEN, no extra secrets)
+    github_token = os.environ.get('GITHUB_TOKEN')
+    if github_token:
+        print(f"  Using GitHub Models for validation...")
+        return validate_with_github_models(content, github_token)
 
-    if HAS_ANTHROPIC and api_key_anthropic:
+    # Fallback to Anthropic
+    if os.environ.get('ANTHROPIC_API_KEY'):
         print(f"  Using Anthropic Claude for validation...")
         return validate_with_anthropic(content)
-    elif HAS_OPENAI and api_key_openai:
+
+    # Fallback to OpenAI
+    if os.environ.get('OPENAI_API_KEY'):
         print(f"  Using OpenAI for validation...")
         return validate_with_openai(content)
-    else:
-        print("  ⚠️  No LLM API key found. Skipping content validation.")
-        return {
-            "valid": True,
-            "confidence": 0.0,
-            "issues": [],
-            "warnings": ["LLM validation skipped - no API key"],
-            "summary": "Validation skipped"
-        }
+
+    # No API available
+    print("  ⚠️  No LLM API available. Skipping content validation.")
+    return {
+        "valid": True,
+        "confidence": 0.0,
+        "issues": [],
+        "warnings": ["LLM validation skipped - no API available"],
+        "summary": "Validation skipped"
+    }
 
 
 def main():
