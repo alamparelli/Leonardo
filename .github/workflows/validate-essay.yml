@@ -82,40 +82,41 @@ jobs:
 
           echo "LLM Response: $RESPONSE"
 
-          # Parse response
-          VALID=$(python3 -c "
-          import json, re, sys
+          # Parse response - write to temp file to avoid quote escaping issues
+          python3 -c "
+          import json, re, sys, os
           response = '''$RESPONSE'''
           try:
               match = re.search(r'\{.*\}', response, re.DOTALL)
               if match:
                   data = json.loads(match.group())
-                  valid = data.get('valid', False)
-                  issues = data.get('issues', [])
-                  summary = data.get('summary', 'No summary')
-                  print(f'VALID={str(valid).lower()}')
+                  valid = str(data.get('valid', False)).lower()
+                  summary = data.get('summary', 'No summary').replace(\"'\", \"\")
+                  with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                      f.write(f'valid={valid}\n')
+                      f.write(f'summary={summary}\n')
+                  print(f'VALID={valid}')
                   print(f'SUMMARY={summary}')
-                  if issues:
-                      print(f'ISSUES={json.dumps(issues)}')
+                  if valid == 'false':
+                      sys.exit(1)
               else:
+                  with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                      f.write('valid=true\n')
+                      f.write('summary=Could not parse LLM response, assuming valid\n')
                   print('VALID=true')
-                  print('SUMMARY=Could not parse LLM response, assuming valid')
           except Exception as e:
-              print('VALID=true')
-              print(f'SUMMARY=Parse error: {e}')
-          ")
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                  f.write('valid=true\n')
+                  f.write(f'summary=Parse error\n')
+              print(f'Parse error: {e}')
+          "
 
-          echo "$VALID"
-          eval "$VALID"
-
-          echo "valid=$VALID" >> $GITHUB_OUTPUT
-          echo "summary=$SUMMARY" >> $GITHUB_OUTPUT
-
-          if [ "$VALID" = "false" ]; then
-            echo "❌ Content validation failed: $SUMMARY"
+          RESULT=$?
+          if [ $RESULT -ne 0 ]; then
+            echo "❌ Content validation failed"
             exit 1
           else
-            echo "✅ Content validation passed: $SUMMARY"
+            echo "✅ Content validation passed"
           fi
 
       - name: Comment on PR (failure)
