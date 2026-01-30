@@ -17,6 +17,12 @@
       "result": "essays/003-the-speed-of-wisdom.md",
       "date": "2026-01-28",
       "inventions": ["The Deliberation Delay", "Wisdom Rings", "The Truth Dance Protocol"]
+    },
+    {
+      "sources": ["essays/connection.md", "essays/acceleration.md"],
+      "result": "essays/004-the-rhythm-of-belonging.md",
+      "date": "2026-01-29",
+      "inventions": ["The Temporal Commons", "Synchrony Rituals", "The Slow Correspondence Protocol"]
     }
   ],
   "essays": [
@@ -45,6 +51,9 @@
     "The Depth Ledger",
     "The Deliberation Delay",
     "Wisdom Rings",
-    "The Truth Dance Protocol"
+    "The Truth Dance Protocol",
+    "The Temporal Commons",
+    "Synchrony Rituals",
+    "The Slow Correspondence Protocol"
   ]
 }
