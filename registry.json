@@ -23,6 +23,12 @@
       "result": "essays/004-the-rhythm-of-belonging.md",
       "date": "2026-01-29",
       "inventions": ["The Temporal Commons", "Synchrony Rituals", "The Slow Correspondence Protocol"]
+    },
+    {
+      "sources": ["essays/death.md", "essays/beauty.md"],
+      "result": "essays/005-the-beauty-of-passing.md",
+      "date": "2026-01-30",
+      "inventions": ["The Ruin Garden", "Mortality Portraits", "The Ephemeral Gallery"]
     }
   ],
   "essays": [
@@ -54,6 +60,9 @@
     "The Truth Dance Protocol",
     "The Temporal Commons",
     "Synchrony Rituals",
-    "The Slow Correspondence Protocol"
+    "The Slow Correspondence Protocol",
+    "The Ruin Garden",
+    "Mortality Portraits",
+    "The Ephemeral Gallery"
   ]
 }
